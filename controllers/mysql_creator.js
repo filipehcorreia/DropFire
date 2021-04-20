@@ -9,8 +9,6 @@ db_controller.getConnection(function(err, connection) {
       if (error) throw error;
     });
 
-    
-
     connection.release();
    
   });

@@ -43,23 +43,23 @@ User.create = (userToCreate,result) => {
     
 
 User.findWhereUsername = (usernameToSearch, result) => {
-  db_controller.getConnection(function(err, connection) {
-    if (err) throw err; 
+  db_controller.getConnection(function(errConnection, connection) {
+    if (errConnection) throw errConnection; 
    
-    connection.query(FIND_USER_BY_USERNAME_STATEMENT,[usernameToSearch], function (err, res) {
+    connection.query(FIND_USER_BY_USERNAME_STATEMENT,[usernameToSearch], function (errFromDb, resFromDB) {
       // When done with the connection, release it.
       connection.release();
    
     //Error from DB
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
+    if (errFromDb) {
+      console.log("error: ", errFromDb);
+      result(errFromDb, null);
       return;
     }
 
     //Return found
-    if (res.length) {
-      result(null, res);
+    if (resFromDB.length) {
+      result(null, resFromDB);
       return;
     }
 
@@ -96,8 +96,6 @@ User.findWhereEmail = (emailToSearch, result) => {
     result(null, 0);
     }
 
-
-  
 });
   });
 };
