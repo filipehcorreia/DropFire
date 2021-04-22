@@ -3,7 +3,7 @@ const Mysql_tables = require("./mysql_tables.js");
 
 const SCHEMA_CREATE_STATEMENT = "CREATE DATABASE IF NOT EXISTS";
 
-var db_name = process.env.DB_NAME || "testeMuneses2";
+var db_name = process.env.DB_NAME || "testeMuneses3";
 var cloud = process.env.IS_CLOUD
 
   if(cloud == undefined){
@@ -14,6 +14,7 @@ var cloud = process.env.IS_CLOUD
       password: process.env.DB_PASS || "passwordsegura!"
     });
   }else{
+    console.log("Creating connection on cloud");
     var tempConnection = mysql.createConnection({
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
@@ -52,8 +53,9 @@ if(cloud == undefined) {
    database: db_name
  });
 }else {
+  console.log("Creating pool on cloud");
   //Reconnect since we are using a pool, and the select DB is not possible
-  const pool = mysql.createPool({
+  var pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: db_name,

@@ -1,9 +1,21 @@
 var express = require('express');
 var crypto = require('crypto');
+var bodyParser = require('body-parser');
 var User = require("../model/user.js")
 var router = express.Router();
 
+
+router.use(bodyParser.urlencoded({ extended: true })); 
+router.use('/views', express.static('views'));
+
+router.get('/', function(req, res){
+   res.render('register',{layout: false});
+});
+
+
+
 router.post('/', function(req, res){
+  console.log(req.body);
   const { username, firstName, email, password, confirmPassword } = req.body;
   var response = {"error": [], "success": []};
   // Check if the password and confirm password fields match
