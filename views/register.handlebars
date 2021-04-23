@@ -32,8 +32,31 @@
         <div class="bg-circle-3 bg-circle"></div>
         <div class="bg-circle-4 bg-circle"></div>
     </header>
-    <section></section>
     <div class="register-photo">
+
+<!-- Shows error message if email/username is taken and/or the passwords dont match-->
+    {{#if passwordsDontMatch}}
+        <div class="alert alert-danger alert-dismissible d-flex justify-content-center offset10" style=" width: 40%;margin-top:-65px; margin-left: auto;margin-right: auto;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>ERROR: </strong>The Passwords dont match
+        </div>
+    {{/if}}
+
+    {{#if EmailTaken}}
+        <div class="alert alert-danger alert-dismissible d-flex justify-content-center offset10" style=" width: 40%;margin-top:-65px; margin-left: auto;margin-right: auto;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>ERROR: </strong>Email already in use
+        </div>
+    {{/if}}
+
+    {{#if UsernameTaken}}
+        <div class="alert alert-danger alert-dismissible d-flex justify-content-center offset10" style=" width: 40%;margin-top:-65px; margin-left: auto;margin-right: auto;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>ERROR: </strong>Username already in use
+        </div>
+    {{/if}}
+<!-- ^^^^^^^^^^^^ Shows error message if email/username is taken and/or the passwords dont match ^^^^^^^^^^^^-->   
+
         <div class="form-container">
             <div class="image-holder"></div>
             <form method="post" action="/auth/signup/">
@@ -53,6 +76,7 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 
 </html>

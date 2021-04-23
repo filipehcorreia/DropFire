@@ -8,6 +8,7 @@ const port = process.env.PORT || 3000;
 
 var login_route = require("./routes/login_route");
 var create_user_route = require("./routes/create_user_route.js");
+var logout_route = require("./routes/logout_route");
 
 app.use('/views', express.static('views'));
 app.engine('handlebars', exphbs());
@@ -50,6 +51,7 @@ app.use(session({
 
   app.use('/auth/login',login_route);
   app.use('/auth/signup',create_user_route);
+  app.use('/auth/logout',logout_route);
 
 
 app.get('/', async (req, res) => {
