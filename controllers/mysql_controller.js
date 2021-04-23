@@ -3,7 +3,7 @@ const Mysql_tables = require("./mysql_tables.js");
 
 const SCHEMA_CREATE_STATEMENT = "CREATE DATABASE IF NOT EXISTS";
 
-var db_name = process.env.DB_NAME || "testeMuneses3";
+var db_name = process.env.DB_NAME || "main";
 var cloud = process.env.IS_CLOUD
 
   if(cloud == undefined){
