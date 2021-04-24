@@ -1,0 +1,13 @@
+#drop_zone {
+    border: 1px dashed gray;
+    padding: 25px;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 1.5em;
+    z-index: 9999;
+    color: #bbb;
+}
+
+.dph {
+    color: red;
+}
