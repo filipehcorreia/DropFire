@@ -43,11 +43,14 @@ router.post('/', function(req, res){
           res.redirect("/");
           return;
        }
+      
        if (dataFindUsername==0){
-         response["error"].push({"msg": "Credentials not valid!"});
-         res.json(response);
+         res.render('login', {
+            layout: false,
+            InvalidCredentials: true
+      })
          return;
-      }
+      } 
 
 
    });

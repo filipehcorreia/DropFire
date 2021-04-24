@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>DropFire - Login</title>
+    <title>DropFire: Login</title>
+    <link rel="icon" type="image/png" href="assets/img/logo.png"/>
     <link rel="stylesheet" href="/views/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i">
@@ -25,6 +26,15 @@
     </nav>
     <header class="masthead text-center text-white">
         <div class="masthead-content">
+            <!-- Shows error message if the credentials arent valid-->
+            {{#if InvalidCredentials}}
+                <div class="alert alert-danger alert-dismissible d-flex justify-content-center offset10" style=" width: 40%;margin-top:-65px; margin-left: auto;margin-right: auto;">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>ERROR:&nbsp; </strong>Invalid Credentials
+                </div>
+            {{/if}}
+            <!-- ^^^^^^^^^^^^ Shows error message if the credentials arent valid ^^^^^^^^^^^^-->    
+
             <div class="container">
                 <h2 class="masthead-subheading mb-0">Login Form</h2>
                 <p>Login to start uploading your files and use our services.</p>
@@ -35,7 +45,9 @@
                         <div class="illustration" ><img class="icon_from_form" src="/views/assets/img/logo.png"></img></div>
                         <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Username"></div>
                         <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-                        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div></form>
+                        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div>
+                        <a class="forgot" href="/auth/changepassword/">Forgot your password?</a>
+                    </form>
                 </div>
             </div>
         </div>

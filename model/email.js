@@ -1,5 +1,7 @@
 var nodemailer = require('nodemailer');
 
+const GMAIL_LOCAL_USER = "flmrcn@gmail.com"
+const GMAIL_LOCAL_PASS = "passwordsegura!"
 
 
 const Email = function(user) {
@@ -13,20 +15,20 @@ Email.sendEmail = (Email, result) => {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.gmailUser || "flmrcn@gmail.com",
-            pass: process.env.gmailPassword || "passwordsegura!"
+            user: process.env.GMAIL_USER || GMAIL_LOCAL_USER,
+            pass: process.env.GMAIL_PASS || GMAIL_LOCAL_PASS
         }
     });
 
     var mailOptions = {
-        from: process.env.gmailUser,
+        from: process.env.GMAIL_USER,
         to: Email.email,
         subject: 'Welcome to DropFire',
-        text: `Thank you ${Email.firstName} for registering in DropFire! \n 
-    Here's your recovery key : ${Email.recovery_key} \n
-    You will need this key to change your password. Keep it safe \n
-    Best Regards,\n\n
-    The DropFire team.`
+        html: `Thank you ${Email.firstName} for registering in DropFire! <br> 
+        Here's your recovery key : ${Email.recovery_key} <br>
+        You will need this key to change your password. Keep it safe <br>
+        Best Regards, <br><br>
+        <strong>The DropFire team.<strong>`
     };
 
     transporter.sendMail(mailOptions, function (error, info) {

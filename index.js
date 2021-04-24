@@ -5,6 +5,7 @@ const session = require('express-session');
 const redis = require('redis');
 const connectRedis = require('connect-redis');
 const port = process.env.PORT || 3000;
+const CLOUD = true;
 
 var login_route = require("./routes/login_route");
 var create_user_route = require("./routes/create_user_route.js");
@@ -25,10 +26,13 @@ app.listen(port, () => {
 
 
 const RedisStore = connectRedis(session)
+
 //Configure redis client
+//If we are in a cloud environment it will use the host and port defined in the env variables
+//Otherwise, will use local host and the port defined by the service
 const redisClient = redis.createClient({
-    host: '10.2.0.19',
-    port: 6379
+    host: process.env.REDIS_HOST || '127.0.0.1',
+    port: process.env.REDIS_PORT || 80
 })
 redisClient.on('error', function (err) {
     console.log('Could not establish a connection with redis. ' + err);
@@ -70,12 +74,7 @@ app.get('/', async (req, res) => {
     console.log(sess);
   }
   res.render('home',{layout: false, user: sess.username});
-}
-
-
-
-
-);
+});
 
 app.get('/test', async (req, res) => {
  
@@ -97,8 +96,7 @@ app.get('/test', async (req, res) => {
 
   res.json({status: sess+" Let's go"});
   //res.render('home',{layout: false});
-}
-);
+});
 
 
 

@@ -45,7 +45,7 @@ router.post('/', function(req, res) {
                 console.log(errMatchKey);
             }
 
-            if (dataMatchKey.length !==0){
+            if (dataMatchKey !==0){
 
                 User.updatePassword(user.password,email,(errUpdate, dataUpdate) => {
                     if (errUpdate) {
@@ -54,13 +54,25 @@ router.post('/', function(req, res) {
 
                     res.redirect("/auth/login")
                 });
+            }else {
+                res.render('change_pass', {
+                    layout: false,
+                    keyDoesntMatch: true
+                })
             }
+        
 
 
         });
 
 
+    }else {
+        res.render('change_pass', {
+            layout: false,
+            passwordsDontMatch: true
+        })
     }
+
 });
 
 
