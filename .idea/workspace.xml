@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8465a09-5f19-4de6-a9dc-10b574b1279b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controllers/mysql_tables.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/mysql_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/mysql_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/mysql_creator.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/mysql_creator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/mysql_tables.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/mysql_tables.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/model/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
@@ -15,6 +14,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -28,11 +34,17 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.google.cloudcode.ide_session_index" value="20210420_0002" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.google.cloudcode.ide_session_index" value="20210424_0006" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/routes" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Objetos3d\TrabalhoDeCN\routes" />
+      <recent name="D:\Objetos3d\TrabalhoDeCN\views" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -44,6 +56,9 @@
       <updated>1618924905952</updated>
       <workItem from="1618924908631" duration="675000" />
       <workItem from="1618927150227" duration="7570000" />
+      <workItem from="1619259690496" duration="6816000" />
+      <workItem from="1619266800564" duration="563000" />
+      <workItem from="1619267378416" duration="40000" />
     </task>
     <servers />
   </component>
@@ -60,5 +75,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000;
 var login_route = require("./routes/login_route");
 var create_user_route = require("./routes/create_user_route.js");
 var logout_route = require("./routes/logout_route");
+var change_password_route = require("./routes/change_password_route");
 
 app.use('/views', express.static('views'));
 app.engine('handlebars', exphbs());
@@ -26,8 +27,8 @@ app.listen(port, () => {
 const RedisStore = connectRedis(session)
 //Configure redis client
 const redisClient = redis.createClient({
-    host: '127.0.0.1',
-    port: 80
+    host: '10.2.0.19',
+    port: 6379
 })
 redisClient.on('error', function (err) {
     console.log('Could not establish a connection with redis. ' + err);
@@ -52,6 +53,7 @@ app.use(session({
   app.use('/auth/login',login_route);
   app.use('/auth/signup',create_user_route);
   app.use('/auth/logout',logout_route);
+  app.use('/auth/changepassword',change_password_route);
 
 
 app.get('/', async (req, res) => {

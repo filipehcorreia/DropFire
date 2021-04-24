@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var bodyParser = require('body-parser');
 var User = require("../model/user.js")
 var router = express.Router();
+var Email = require ("../model/email.js");
 
 
 router.use(bodyParser.urlencoded({
@@ -33,6 +34,9 @@ router.post('/', function(req, res) {
     };
     // Check if the password and confirm password fields match
     var HashedPassword = crypto.createHash('sha256').update(password).digest('base64');
+    var HashedKey = crypto.createHash('sha256').update(email).digest('base64');
+
+
 
     if (password === confirmPassword) {
         const user = new User({
@@ -40,7 +44,8 @@ router.post('/', function(req, res) {
             firstName: firstName,
             email: email,
             password: HashedPassword,
-            confirmPassword: confirmPassword
+            confirmPassword: confirmPassword,
+            recovery_key: HashedKey
         });
 
         User.findWhereUsername(username, (errFindUsername, dataFindUsername) => {
@@ -58,6 +63,8 @@ router.post('/', function(req, res) {
                             if (errUserCreate) {
                                 console.log(errUserCreate);
                             } else {
+                                const email = new Email(user);
+                                Email.sendEmail(email);
                                 res.redirect('/auth/login');
                             }
                         });
