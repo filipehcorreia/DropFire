@@ -1,8 +1,7 @@
 .login-clean {
-  width: 700px;
-  height: 700px;
-  padding-top: 50px;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  /*background: linear-gradient(#ff6a00, #ee0979) !important; */
 }
 .login-clean form {
   max-width: 320px;
@@ -48,6 +47,11 @@
 .login-clean form .btn-primary:active {
   transform: translateY(1px);
 }
+.adjustContainer{
+  height: 30px; 
+  margin-top: -30px;
+}
+
 .login-clean form .forgot {
   display: block;
   text-align: center;
@@ -69,3 +73,4 @@
   width: 125px;
   height: 125px;
 }
+
