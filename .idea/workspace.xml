@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c8465a09-5f19-4de6-a9dc-10b574b1279b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/mysql_tables.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/mysql_tables.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/model/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/create_user_route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/create_user_route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/dashboard.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/views/dashboard.handlebars" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +30,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.google.cloudcode.ide_session_index" value="20210424_0006" />
+    <property name="com.google.cloudcode.ide_session_index" value="20210425_0001" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/routes" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -59,6 +55,7 @@
       <workItem from="1619259690496" duration="6816000" />
       <workItem from="1619266800564" duration="563000" />
       <workItem from="1619267378416" duration="40000" />
+      <workItem from="1619350277496" duration="417000" />
     </task>
     <servers />
   </component>
