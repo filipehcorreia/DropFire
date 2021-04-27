@@ -50,8 +50,6 @@ User.createBucketOnGCP = (userToCreate, result) => {
 
     const bucket = new Bucket({
         bucket_name: "genuine-plating-311210" + userToCreate.username,
-        storageClass: 'coldline',
-        location: "EUROPE-WEST1"
     });
 
     Bucket.create(bucket, (errBucket, resBucket) => {

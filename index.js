@@ -95,3 +95,16 @@ app.get('/test', async(req, res) => {
     res.json({ status: sess + " Let's go" });
     //res.render('home',{layout: false});
 });
+
+var Secret = require("./model/secrets.js");
+
+const secret = new Secret({
+    key: 'teste'
+});
+console.log("index getting secret!");
+(async() => {
+    Secret.get(secret, (error, result) => {
+        console.log(error);
+        console.log(result);
+    });
+})();
