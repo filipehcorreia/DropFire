@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 var User = require("../model/user.js")
 var router = express.Router();
 
-
 router.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -15,8 +14,6 @@ router.get('/', function(req, res) {
         layout: false
     });
 });
-
-
 
 router.post('/', function(req, res) {
     console.log(req.body);
@@ -40,33 +37,32 @@ router.post('/', function(req, res) {
             confirmPassword: confirmPassword
         });
 
-        User.checkIfKeyMatches(email,key,(errMatchKey, dataMatchKey) => {
+        User.checkIfKeyMatches(email, key, (errMatchKey, dataMatchKey) => {
             if (errMatchKey) {
                 console.log(errMatchKey);
             }
 
-            if (dataMatchKey !==0){
-
-                User.updatePassword(user.password,email,(errUpdate, dataUpdate) => {
+            if (dataMatchKey !== 0) {
+                User.updatePassword(user.password, email, (errUpdate, dataUpdate) => {
                     if (errUpdate) {
                         console.log(errUpdate);
                     }
 
                     res.redirect("/auth/login")
                 });
-            }else {
+            } else {
                 res.render('change_pass', {
                     layout: false,
                     keyDoesntMatch: true
                 })
             }
-        
+
 
 
         });
 
 
-    }else {
+    } else {
         res.render('change_pass', {
             layout: false,
             passwordsDontMatch: true

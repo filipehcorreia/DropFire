@@ -3,8 +3,7 @@ var crypto = require('crypto');
 var bodyParser = require('body-parser');
 var User = require("../model/user.js")
 var router = express.Router();
-var Email = require ("../model/email.js");
-
+var Email = require("../model/email.js");
 
 router.use(bodyParser.urlencoded({
     extended: true
@@ -16,8 +15,6 @@ router.get('/', function(req, res) {
         layout: false
     });
 });
-
-
 
 router.post('/', function(req, res) {
     console.log(req.body);
@@ -63,11 +60,21 @@ router.post('/', function(req, res) {
                             if (errUserCreate) {
                                 console.log(errUserCreate);
                             } else {
+                                User.createBucketOnGCP(user, (errCreateBucket, resBucket) => {
+                                    console.log("Creating bucket")
+                                    if (errCreateBucket) {
+                                        console.log(errCreateBucket);
+                                    } else {
+                                        console.log(resBucket);
+                                    }
+                                });
                                 const email = new Email(user);
                                 Email.sendEmail(email);
                                 res.redirect('/auth/login');
+
                             }
                         });
+
                     } else {
                         res.render('register', {
                             layout: false,

@@ -1,0 +1,9 @@
+// Imports the Google Cloud client library
+const { Storage } = require('@google-cloud/storage');
+
+
+const storage = new Storage();
+
+
+
+module.exports = storage;
