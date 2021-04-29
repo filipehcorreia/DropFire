@@ -10,7 +10,7 @@ var File = require('./../model/file.js');
 const multer = Multer({
     storage: Multer.memoryStorage(),
     limits: {
-        fileSize: 5 * 1024 * 1024, // no larger than 5mb, you can change as needed.
+        fileSize: 1024 * 1024 * 1024, // no larger than 1gb, you can change as needed.
     },
 });
 
@@ -21,30 +21,37 @@ router.use(bodyParser.urlencoded({
 router.use('/views', express.static('views'));
 
 router.get('/', function(req, res) {
-        if (req.session.username) {
+    var arr = [];
+    if (req.session.username) {
 
+        File.findWhereBucketUser(req.session.username, (errorFromFile, dataFromFile) => {
 
-            //merdas para processar o que vem da  veem para aqui?
+            if (errorFromFile) console.log(errorFromCreateFile);
 
-            File.findWhereBucketUser(req.session.username, (errorFromFile, dataFromFile) => {
-                if (errorFromFile) console.log(errorFromCreateFile);
+            console.log(dataFromFile.length);
+            for (var i = 0; i < dataFromFile.length; i++) {
+                arr.push({
+                    filename: dataFromFile[i].FileName.substring((dataFromFile[i].FileName.indexOf("*") + 1), dataFromFile[i].FileName.length),
+                    filesize: Math.round(dataFromFile[i].FileSize / 1024 / 1024) + "MB",
+                    uploaddate: dataFromFile[i].UploadDate
+                });
+            }
 
-                for (var i = 0; i < dataFromFile.size; i++) {
-                    console.log(dataFromFile[i]);
-                }
-            });
-
+            console.log(arr);
+            /*THIS RENDER HAS TO BE INSIDE THE FUNCTION WHERE THE SQL QUERIE HAPPENS , OTHERWISE
+            THE QUERIE RESULT WILL ARRIVE AFTER THE "FILES(null)"
+            ARE SENT TO THE HANDLEBARS TO RENDER*/
             res.render('dashboard', {
                 layout: false,
-                files: dataFromFile
+                arr: arr
             });
-        }    
-        else {
-            res.redirect("/auth/login");
-        }
-});
+        });
 
-    
+
+    } else {
+
+    }
+});
 
 router.post('/upload', multer.single('file'), function(req, res, next) {
 
@@ -74,11 +81,6 @@ router.post('/upload', multer.single('file'), function(req, res, next) {
     });
 
     blobStream.on('finish', () => {
-        // The public URL can be used to directly access the file via HTTP.
-        const publicUrl = format(
-            `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-        );
-        //res.status(200).send(publicUrl);
         res.status(200).redirect("/dashboard");
     });
 
@@ -90,12 +92,13 @@ router.post('/upload', multer.single('file'), function(req, res, next) {
         bucketuser: usernameFromSession
     });
 
+
     File.create(file, (errorFromCreateFile, dataFromCreateFile) => {
         if (errorFromCreateFile) console.log(errorFromCreateFile);
 
         res.render('dashboard', {
             layout: false,
-            fileUploaded: true
+            fileUploaded: `The file ${req.file.originalname} was uploaded!`
         });
     })
 

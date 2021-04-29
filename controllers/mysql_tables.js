@@ -5,9 +5,9 @@ const Mysql_tables = function(mysql_tables) {
 
 Mysql_tables.create = (mysql_tables) => {
     var CREATE_TABLE_USERS_STATMENT = `CREATE TABLE ${mysql_tables.db_name}.users (username VARCHAR(20) PRIMARY KEY,firstname VARCHAR(30),email VARCHAR(65),password VARCHAR(512),recovery_key VARCHAR(512))`;
-    var CREATE_TABLE_BUCKET = `CREATE TABLE ${mysql_tables.db_name}.buckets (bucket VARCHAR(30) PRIMARY KEY, username VARCHAR(20), FOREIGN KEY (username) references users (username));
+    var CREATE_TABLE_BUCKET = `CREATE TABLE ${mysql_tables.db_name}.buckets (bucket VARCHAR(512) PRIMARY KEY, username VARCHAR(20));
     `;
-    var CREATE_TABLE_FILE = `CREATE TABLE ${mysql_tables.db_name}.files (FileName VARCHAR (255) PRIMARY KEY, FileSize VARCHAR(255), UploadDate DATE, bucket_user VARCHAR(30), FOREIGN KEY (bucket_user) references buckets (bucket))
+    var CREATE_TABLE_FILE = `CREATE TABLE ${mysql_tables.db_name}.files (FileName VARCHAR (512) PRIMARY KEY, FileSize VARCHAR(512), UploadDate VARCHAR(128), bucket_user VARCHAR(512))
     `;
 
     mysql_tables.connection.query(CREATE_TABLE_USERS_STATMENT, function(error, res) {

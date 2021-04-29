@@ -57,28 +57,32 @@
                 </form>
 
                 </div>
-                <!-- Shows error message if nothing was uploaded-->
+                <!-- Shows error message if nothing wacles uploaded-->
                 {{#if errorSelectFile}}
+                <br><br>
                 <div class="alert alert-danger alert-dismissible d-flex justify-content-center offset10"
                     style=" width: 40%;margin-top:-65px; margin-left: auto;margin-right: auto;">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>ERROR:&nbsp; </strong>No file was uploaded!
                 </div>
+                <br>
                 {{/if}}
 
                 {{#if fileUploaded}}
+                <br><br>
                 <div class="alert alert-success alert-dismissible d-flex justify-content-center offset10"
                     style=" width: 40%;margin-top:-65px; margin-left: auto;margin-right: auto;">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>SUCCESS:&nbsp; </strong>The file {{req.file.originalname}} was uploaded!
+                    <strong>SUCCESS:&nbsp; </strong>{{fileUploaded}}
                 </div>
+                <br>
                 {{/if}}
                 <!-- ^^^^^^^^^^^^ Shows error message if nothing was uploaded ^^^^^^^^^^^^-->
 
                 <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Search by typing here..">
                 </div><span class="counter pull-right"></span>
                 <div class="table-responsive table-bordered table table-hover table-bordered results">
-                    <table class="table table-bordered table-hover">
+                    <table id="ficheiros" class="table table-bordered table-hover">
                         <thead class="bill-header cs">
                             <tr>
                                 <th id="trs-hd" class="col-lg-1">File Name</th>
@@ -89,32 +93,20 @@
                         </thead>
                         <tbody>
                             <tr class="warning no-result">
-                                <td colspan="8"><i class="fa fa-warning"></i>&nbsp; No Result !!!</td>
+                                <td colspan="8"><i class="fa fa-warning"></i>&nbsp; No Files !!!</td>
                             </tr>
-                            <tr>
-                                <td>01</td>
-                                <td>India</td>
-                                <td>2014</td>
-                                <td><button class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-cloud-download" style="font-size: 15px;"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>01</td>
-                                <td>India</td>
-                                <td>2014</td>
-                                <td><button class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-cloud-download" style="font-size: 15px;"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>01</td>
-                                <td>India</td>
-                                <td>2014</td>
-                                <td><button class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-cloud-download" style="font-size: 15px;"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>01</td>
-                                <td>India</td>
-                                <td>2014</td>
-                                <td><button class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-cloud-download" style="font-size: 15px;"></i></button></td>
-                            </tr>
+                            {{log arr}} 
+                            {{#each arr}}
+                            
+                            <tr>     
+                                    <td>"{{filename}}"</td>
+                                    <td>{{this.filesize}}</td>
+                                    <td>{{uploaddate}}</td>
+                                    <td><button class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-cloud-download" style="font-size: 15px;"></i></button></td>  
+                            </tr>  
+                          
+                            {{/each}}
+                            
                         </tbody>
                     </table>
                 </div>

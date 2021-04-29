@@ -6,7 +6,7 @@ const FIND_FILES_STATEMENT = 'SELECT * FROM files WHERE bucket_user=(?)';
 
 // constructor
 const File = function(file) {
-    this.filename = file.filename;
+    this.filename = dateFormat(new Date(), "yyyy-mm-dd h:MM:ss") + "*" + file.filename;
     this.filesize = file.filesize;
     this.uploaddate = dateFormat(new Date(), "yyyy-mm-dd h:MM:ss");
     this.bucketuser = file.bucketuser;
@@ -16,7 +16,7 @@ File.create = async(fileToCreate, result) => {
     db_controller.getConnection(function(err, connection) {
         if (err) throw err; //Error connection to 
 
-        connection.query(CREATE_FILES_STATEMENT, [fileToCreate.filename, fileToCreate.filename, fileToCreate.uploaddate, fileToCreate.bucketuser], function(err, res) {
+        connection.query(CREATE_FILES_STATEMENT, [fileToCreate.filename, fileToCreate.filesize, fileToCreate.uploaddate, fileToCreate.bucketuser], function(err, res) {
             // When done with the connection, release it.
             connection.release();
 
