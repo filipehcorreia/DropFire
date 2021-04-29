@@ -1,3 +1,4 @@
+
 const project_id = "genuine-plating-311210";
 const secret_controller = require("../controllers/secret_controller.js");
 
@@ -27,8 +28,6 @@ Secret.get = async(secretToGet, result) => {
         result(true, null);
         return;
     }
-
-
 
 };
 

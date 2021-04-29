@@ -11,3 +11,32 @@
 .dph {
     color: red;
 }
+
+.search_file {
+    margin-left: 12px;
+    padding: 4px 4px 4px 4px;
+    margin-top: 20px;
+    background-color: #1cc88a;
+    border-radius: 5px;
+    color: white;
+    float: left;
+}
+
+.search_file:hover {
+    background-color: #057a1e;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#nameFile {
+    margin-top: -10px;
+    padding-left: 15px;
+}
+
+#upload {
+    float: left;
+    margin-top: 10px;
+    clear: both;
+}

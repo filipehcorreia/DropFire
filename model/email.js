@@ -1,13 +1,30 @@
 var nodemailer = require('nodemailer');
+/*var Secret = require("./secrets.js");
 
-const GMAIL_LOCAL_USER = "flmrcn@gmail.com"
-const GMAIL_LOCAL_PASS = "passwordsegura!"
+const gmailPassSecret = new Secret({
+    key: 'GMAIL_PASS'
+});
 
+var putSecretHere;
+
+let getSecret = async() => {
+    await Secret.get(gmailPassSecret, (error, result) => {
+        putSecretHere = result;
+    });
+};
+
+getSecret().then((res => {
+ 
+}))
+
+*/
+const GMAIL_LOCAL_USER = "flmrcn@gmail.com";
+const GMAIL_LOCAL_PASS = "passwordsegura!";
 
 const Email = function(user) {
     this.firstName = user.firstName;
     this.email = user.email;
-    this.recovery_key=user.recovery_key;
+    this.recovery_key = user.recovery_key;
 };
 
 Email.sendEmail = (Email, result) => {
@@ -31,7 +48,7 @@ Email.sendEmail = (Email, result) => {
         <strong>The DropFire team.<strong>`
     };
 
-    transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
             console.log(error);
         } else {

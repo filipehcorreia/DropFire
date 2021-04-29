@@ -50,6 +50,7 @@ User.createBucketOnGCP = (userToCreate, result) => {
 
     const bucket = new Bucket({
         bucket_name: "genuine-plating-311210" + userToCreate.username,
+        bucket_username: userToCreate.username
     });
 
     Bucket.create(bucket, (errBucket, resBucket) => {

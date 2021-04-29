@@ -3,6 +3,8 @@ const Mysql_tables = require("./mysql_tables.js");
 
 const SCHEMA_CREATE_STATEMENT = "CREATE DATABASE IF NOT EXISTS";
 
+const GET_USER_FILES_STATEMENT = 'SELECT * FROM files WHERE bucket_user= (?)';
+
 var db_name = process.env.DB_NAME || "main";
 var cloud = process.env.IS_CLOUD
 
@@ -21,7 +23,6 @@ if (cloud == undefined) {
         socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
     });
 }
-
 
 tempConnection.query(`${SCHEMA_CREATE_STATEMENT} ${db_name}`, function(err, res) {
     if (err) throw err;

@@ -44,14 +44,28 @@
                 <div id="drop_zone" class="visible">
                     <div id="DPH">Drop files here</div>
                 </div>
-                <form class="md-form" action="#">
+                <form class="md-form" action="/dashboard/upload" method="post" enctype="multipart/form-data">
                     <div class="file-field">
-                        <input class="btn" type="file">
+                        <label class="search_file"> 
+                            <input id="inputFile" class="btn" type="file" name="file">
+                            Search files...
+                        </label>
+                        <br>
+                        <span id="nameFile">No file selected</span>
                     </div>
-                    <div class="form-group pull-left col-lg-1"><button type="submit" class="btn btn-success">Upload</button>
+                    <div id="upload" class="form-group  col-lg-1 "><button type="submit" class="btn btn-success">Upload</button>
                 </form>
 
                 </div>
+                <!-- Shows error message if nothing was uploaded-->
+                {{#if errorSelectFile}}
+                <div class="alert alert-danger alert-dismissible d-flex justify-content-center offset10"
+                    style=" width: 40%;margin-top:-65px; margin-left: auto;margin-right: auto;">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>ERROR:&nbsp; </strong>No file was uploaded!
+                </div>
+                {{/if}}
+                <!-- ^^^^^^^^^^^^ Shows error message if nothing was uploaded ^^^^^^^^^^^^-->
 
                 <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Search by typing here..">
                 </div><span class="counter pull-right"></span>
