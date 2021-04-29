@@ -43,11 +43,7 @@ router.get('/', function(req, res) {
                 layout: false,
                 arr: arr
             });
-
-            
-
         });
-     
     } else {
         res.redirect("/");
     }
@@ -100,6 +96,7 @@ router.post('/upload', multer.single('file'), function(req, res, next) {
             layout: false,
             fileUploaded: `The file ${req.file.originalname} was uploaded!`
         });
+
     })
 
 
