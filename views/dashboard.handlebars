@@ -65,6 +65,14 @@
                     <strong>ERROR:&nbsp; </strong>No file was uploaded!
                 </div>
                 {{/if}}
+
+                {{#if fileUploaded}}
+                <div class="alert alert-success alert-dismissible d-flex justify-content-center offset10"
+                    style=" width: 40%;margin-top:-65px; margin-left: auto;margin-right: auto;">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>SUCCESS:&nbsp; </strong>The file {{req.file.originalname}} was uploaded!
+                </div>
+                {{/if}}
                 <!-- ^^^^^^^^^^^^ Shows error message if nothing was uploaded ^^^^^^^^^^^^-->
 
                 <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Search by typing here..">

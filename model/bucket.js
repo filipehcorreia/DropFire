@@ -1,9 +1,8 @@
 const bucket_controller = require('../controllers/bucket_controller.js');
 const db_controller = require('../controllers/mysql_controller.js');
 
-const CREATE_BUCKET_STATEMENT = 'INSERT INTO buckets VALUES (?,?)';
-const CREATE_FILES_STATEMENT = 'INSERT INTO files VALUES (?,?,?,?,?)';
-//bucket , username 
+const CREATE_BUCKET_STATEMENT = 'INSERT INTO buckets VALUES (?,?)'; //bucket , username 
+
 
 // constructor
 const Bucket = function(bucket) {

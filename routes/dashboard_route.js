@@ -4,7 +4,7 @@ var router = express.Router();
 var { format } = require('util');
 var Multer = require('multer');
 var bucket_controller = require('./../controllers/bucket_controller.js');
-var User = require('./../model/user.js');
+var File = require('./../model/file.js');
 
 
 const multer = Multer({
@@ -21,15 +21,30 @@ router.use(bodyParser.urlencoded({
 router.use('/views', express.static('views'));
 
 router.get('/', function(req, res) {
-    if (req.session.username) {
-        res.render('dashboard', {
-            layout: false
-        });
-    } else {
-        res.redirect("/auth/login");
-    }
+        if (req.session.username) {
 
+
+            //merdas para processar o que vem da  veem para aqui?
+
+            File.findWhereBucketUser(req.session.username, (errorFromFile, dataFromFile) => {
+                if (errorFromFile) console.log(errorFromCreateFile);
+
+                for (var i = 0; i < dataFromFile.size; i++) {
+                    console.log(dataFromFile[i]);
+                }
+            });
+
+            res.render('dashboard', {
+                layout: false,
+                files: dataFromFile
+            });
+        }    
+        else {
+            res.redirect("/auth/login");
+        }
 });
+
+    
 
 router.post('/upload', multer.single('file'), function(req, res, next) {
 
@@ -63,11 +78,27 @@ router.post('/upload', multer.single('file'), function(req, res, next) {
         const publicUrl = format(
             `https://storage.googleapis.com/${bucket.name}/${blob.name}`
         );
-        res.status(200).send(publicUrl);
+        //res.status(200).send(publicUrl);
+        res.status(200).redirect("/dashboard");
     });
 
     blobStream.end(req.file.buffer);
-    //GET_USER_FILES_STATEMENT com um username
+
+    const file = new File({
+        filename: req.file.originalname,
+        filesize: req.file.size,
+        bucketuser: usernameFromSession
+    });
+
+    File.create(file, (errorFromCreateFile, dataFromCreateFile) => {
+        if (errorFromCreateFile) console.log(errorFromCreateFile);
+
+        res.render('dashboard', {
+            layout: false,
+            fileUploaded: true
+        });
+    })
+
 
 
 });
