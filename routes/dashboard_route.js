@@ -6,7 +6,6 @@ var Multer = require('multer');
 var bucket_controller = require('./../controllers/bucket_controller.js');
 var File = require('./../model/file.js');
 
-
 const multer = Multer({
     storage: Multer.memoryStorage(),
     limits: {
@@ -32,12 +31,11 @@ router.get('/', function(req, res) {
             for (var i = 0; i < dataFromFile.length; i++) {
                 arr.push({
                     filename: dataFromFile[i].FileName.substring((dataFromFile[i].FileName.indexOf("*") + 1), dataFromFile[i].FileName.length),
-                    filesize: Math.round(dataFromFile[i].FileSize / 1024 / 1024) + "MB",
+                    filesize: (dataFromFile[i].FileSize *0.000001).toFixed(2) + "MB",
                     uploaddate: dataFromFile[i].UploadDate
                 });
             }
 
-            console.log(arr);
             /*THIS RENDER HAS TO BE INSIDE THE FUNCTION WHERE THE SQL QUERIE HAPPENS , OTHERWISE
             THE QUERIE RESULT WILL ARRIVE AFTER THE "FILES(null)"
             ARE SENT TO THE HANDLEBARS TO RENDER*/
@@ -45,11 +43,13 @@ router.get('/', function(req, res) {
                 layout: false,
                 arr: arr
             });
+
+            
+
         });
-
-
+     
     } else {
-
+        res.redirect("/");
     }
 });
 

@@ -40,7 +40,6 @@ router.post('/', function(req, res) {
             sess.password = user.password;
 
             response["success"].push({ "msg": "You are now logged in!" });
-            console.log(req.session)
             res.redirect("/");
             return;
         }
