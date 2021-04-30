@@ -20,6 +20,7 @@ router.use(bodyParser.urlencoded({
 router.use('/views', express.static('views'));
 
 router.get('/', function(req, res) {
+
     var arr = [];
     if (req.session.username) {
 
@@ -31,7 +32,7 @@ router.get('/', function(req, res) {
             for (var i = 0; i < dataFromFile.length; i++) {
                 arr.push({
                     filename: dataFromFile[i].FileName.substring((dataFromFile[i].FileName.indexOf("*") + 1), dataFromFile[i].FileName.length),
-                    filesize: (dataFromFile[i].FileSize *0.000001).toFixed(2) + "MB",
+                    filesize: (dataFromFile[i].FileSize * 0.000001).toFixed(2) + "MB",
                     uploaddate: dataFromFile[i].UploadDate
                 });
             }
@@ -39,15 +40,25 @@ router.get('/', function(req, res) {
             /*THIS RENDER HAS TO BE INSIDE THE FUNCTION WHERE THE SQL QUERIE HAPPENS , OTHERWISE
             THE QUERIE RESULT WILL ARRIVE AFTER THE "FILES(null)"
             ARE SENT TO THE HANDLEBARS TO RENDER*/
-            res.render('dashboard', {
-                layout: false,
-                arr: arr
-            });
+            if (req.query.msg) {
+                res.render('dashboard', {
+                    layout: false,
+                    fileUploaded: `The file was uploaded!`,
+                    arr: arr
 
-            
+                });
+            } else {
+                res.render('dashboard', {
+                    layout: false,
+                    arr: arr
+                });
+            }
+
+
+
 
         });
-     
+
     } else {
         res.redirect("/");
     }
@@ -68,9 +79,10 @@ router.post('/upload', multer.single('file'), function(req, res, next) {
     }
 
     var usernameFromSession = req.session.username;
-    var projectName = 'genuine-plating-311210';
+    var fixedNameOfBcuket = 'flmrcn';
 
-    var bucket = bucket_controller.bucket(`${projectName}${usernameFromSession}`);
+    console.log(`${fixedNameOfBcuket}${usernameFromSession}`);
+    var bucket = bucket_controller.bucket(`${fixedNameOfBcuket}${usernameFromSession}`);
 
     // Create a new blob in the bucket and upload the file data.
     const blob = bucket.file(req.file.originalname);
@@ -96,10 +108,11 @@ router.post('/upload', multer.single('file'), function(req, res, next) {
     File.create(file, (errorFromCreateFile, dataFromCreateFile) => {
         if (errorFromCreateFile) console.log(errorFromCreateFile);
 
-        res.render('dashboard', {
+        /*res.render('dashboard', {
             layout: false,
             fileUploaded: `The file ${req.file.originalname} was uploaded!`
-        });
+        });*/
+        res.redirect('/dashboard?msg=success')
     })
 
 

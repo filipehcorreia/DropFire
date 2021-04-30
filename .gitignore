@@ -2,3 +2,5 @@ node_modules
 .dockerignore
 public
 .ideia
+.idea/workspace.xml
+.idea/workspace.xml
