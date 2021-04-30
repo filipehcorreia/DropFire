@@ -112,7 +112,7 @@ router.post('/upload', multer.single('file'), function(req, res, next) {
             layout: false,
             fileUploaded: `The file ${req.file.originalname} was uploaded!`
         });*/
-        res.redirect('/dashboard?msg=success')
+        res.redirect('/dashboard?msg=success');
     })
 
 
