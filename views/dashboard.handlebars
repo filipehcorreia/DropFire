@@ -87,10 +87,10 @@
                         <thead class="bill-header cs">
                             <tr>
                                 <th id="trs-hd" class="col-lg-1 width30">File Name</th>
-                                <th id="trs-hd" class="col-lg-2 width30">File Size</th>
+                                <th id="trs-hd" class="col-lg-1 width30">File Size</th>
                                 <th id="trs-hd" class="col-lg-3 width30">Upload Date</th>
-                                <th id="trs-hd" class="col-lg-1 width5">Download</th>
-                                <th id="trs-hd" class="col-lg-1 width5">Delete File</th>
+                                <th id="trs-hd" class="col-lg-1 width3">Download File</th>
+                                <th id="trs-hd" class="col-lg-1 width3">Delete File</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -104,8 +104,8 @@
                                     <td>{{filename}}</td>
                                     <td>{{filesize}}</td>
                                     <td>{{uploaddateDisplay}}</td>
-                                    <td><a href="/dashboard/download/{{uploaddate}}{{filename}}" class="btn btn-success"  type="submit"><i class="fa fa-cloud-download"></i></a></td> 
-                                    <td><a href="/dashboard/delete/{{uploaddate}}{{filename}}" class="btn btn-danger"  type="submit"><i class="fa fa-trash" ></i></a></td> 
+                                    <td><a href="/dashboard/download/{{uploaddate}}{{filename}}" class="btn btn-success centerButton" type="submit"><i class="fa fa-cloud-download"></i></a></td> 
+                                    <td><a href="/dashboard/delete/{{uploaddate}}{{filename}}" class="btn btn-danger" type="submit"><i class="fa fa-trash" ></i></a></td> 
                             </tr>  
                           
                             {{/each}}

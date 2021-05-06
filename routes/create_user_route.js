@@ -35,7 +35,7 @@ router.post('/', function(req, res) {
 
     if (password === confirmPassword) {
         const user = new User({
-            username: username.toLowerCase(),
+            username: username,
             firstName: firstName,
             email: email,
             password: HashedPassword,

@@ -60,8 +60,13 @@
     width: 30%;
 }
 
-.width5 {
-    width: 5%;
+.width3 {
+    width: 3%;
+    margin-right: 3px;
+}
+
+.centerButton{
+    margin-left: 7px;
 }
 
 i{
