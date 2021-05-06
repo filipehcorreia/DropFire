@@ -6,7 +6,6 @@ var Multer = require('multer');
 var bucket_controller = require('./../controllers/bucket_controller.js');
 var File = require('./../model/file.js');
 var dateFormat = require('dateformat');
-const { MulterError } = require('multer');
 
 const multer = Multer({
     storage: Multer.memoryStorage(),
@@ -31,10 +30,12 @@ router.get('/', function(req, res) {
             if (errorFromFile) console.log(errorFromCreateFile);
 
             for (var i = 0; i < dataFromFile.length; i++) {
+                var day = dataFromFile[i].UploadDate.substr(0,10);
+                var date = dataFromFile[i].UploadDate.substr(10,dataFromFile[i].UploadDate.length);
                 arr.push({
                     filename: dataFromFile[i].FileName.substring(18,dataFromFile[i].FileName.length),
                     filesize: (dataFromFile[i].FileSize * 0.000001).toFixed(2) + "MB",
-                    uploaddate: dataFromFile[i].UploadDate
+                    uploaddate: day + " " + date
                 });
             }
 
@@ -100,7 +101,7 @@ router.post('/upload', multer.single('file'), function(req, res, next) {
         return;
     }
     
-    var usernameFromSession = req.session.username;
+    var usernameFromSession = req.session.username.toLowerCase();
     var fixedNameOfBucket = 'flmrcn';
 
     var bucket = bucket_controller.bucket(`${fixedNameOfBucket}${usernameFromSession}`);
@@ -143,7 +144,7 @@ router.get('/download/:filename', async function(req, res) {
 
     if(req.session.username){
         var filename = req.params.filename;
-        var usernameFromSession = req.session.username;
+        var usernameFromSession = req.session.username.toLowerCase();
         var fixedNameOfBucket = 'flmrcn';
     
         try{
@@ -183,7 +184,7 @@ router.get('/delete/:filename', async function(req, res) {
 
     if(req.session.username){
         var filename = req.params.filename;
-        var usernameFromSession = req.session.username;
+        var usernameFromSession = req.session.username.toLowerCase();
         var fixedNameOfBucket = 'flmrcn';
     
         try{
