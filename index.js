@@ -24,8 +24,6 @@ app.listen(port, () => {
     console.log(`Dropfire started at http://localhost:${port}`)
 })
 
-
-
 const RedisStore = connectRedis(session)
 
 //Configure redis client
@@ -33,7 +31,7 @@ const RedisStore = connectRedis(session)
 //Otherwise, will use local host and the port defined by the service
 const redisClient = redis.createClient({
     host: process.env.REDIS_HOST || '127.0.0.1',
-    port: process.env.REDIS_PORT || 80
+    port: process.env.REDIS_PORT || 81
 })
 redisClient.on('error', function(err) {
     console.log('Could not establish a connection with redis. ' + err);
