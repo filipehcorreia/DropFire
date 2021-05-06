@@ -3,12 +3,13 @@ var dateFormat = require('dateformat');
 
 const CREATE_FILES_STATEMENT = 'INSERT INTO files VALUES (?,?,?,?)'; //FileName, FileSize, UploadDate, Bucket_user
 const FIND_FILES_STATEMENT = 'SELECT * FROM files WHERE bucket_user=(?)';
+const DELETE_FILES_STATEMENT = 'DELETE FROM files WHERE FileName=(?)';
 
 // constructor
 const File = function(file) {
-    this.filename = dateFormat(new Date(), "yyyy-mm-dd h:MM:ss") + "*" + file.filename;
     this.filesize = file.filesize;
-    this.uploaddate = dateFormat(new Date(), "yyyy-mm-dd h:MM:ss");
+    this.uploaddate = file.uploaddate;
+    this.filename = file.uploaddate+file.filename;
     this.bucketuser = file.bucketuser;
 };
 
@@ -19,7 +20,6 @@ File.create = async(fileToCreate, result) => {
         connection.query(CREATE_FILES_STATEMENT, [fileToCreate.filename, fileToCreate.filesize, fileToCreate.uploaddate, fileToCreate.bucketuser], function(err, res) {
             // When done with the connection, release it.
             connection.release();
-
             //Error from DB     
             if (err) {
                 console.log("error: ", err);
@@ -31,11 +31,8 @@ File.create = async(fileToCreate, result) => {
                 result(null, res);
                 return;
             }
-
-            console.log(res);
             //Found 0 occasions
             result(null, 0);
-
         });
     });
 };
@@ -45,6 +42,34 @@ File.findWhereBucketUser = (bucket_userToSearch, result) => {
         if (errConnection) throw errConnection;
 
         connection.query(FIND_FILES_STATEMENT, [bucket_userToSearch], function(errFromDb, resFromDB) {
+            // When done with the connection, release it.
+            connection.release();
+
+            //Error from DB
+            if (errFromDb) {
+                console.log("error: ", errFromDb);
+                result(errFromDb, null);
+                return;
+            }
+
+            //Return found
+            if (resFromDB.length) {
+                result(null, resFromDB);
+                return resFromDB;
+            }
+
+            //Find 0 occasions
+            result(null, 0);
+
+        });
+    });
+};
+
+File.deleteFile = (fileNameToDelete, result) => {
+    db_controller.getConnection(function(errConnection, connection) {
+        if (errConnection) throw errConnection;
+
+        connection.query(DELETE_FILES_STATEMENT, [fileNameToDelete], function(errFromDb, resFromDB) {
             // When done with the connection, release it.
             connection.release();
 

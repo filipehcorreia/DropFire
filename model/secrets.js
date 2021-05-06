@@ -9,7 +9,7 @@ const Secret = function(secret) {
 
 Secret.get = async(secretToGet, result) => {
     var name = `projects/${project_id}/secrets/${secretToGet.key}/versions/latest`;
-    console.log("Getting secret" + name);
+    //console.log("Getting secret" + name);  //Check secret name
     try {
         var [version] = await secret_controller.accessSecretVersion({
             name: name,
@@ -20,7 +20,6 @@ Secret.get = async(secretToGet, result) => {
 
         // WARNING: Do not print the secret in a production environment - this
         // snippet is showing how to access the secret material.
-        console.log(`Payload: ${payload}`);
         result(false, payload);
         return;
     } catch (e) {

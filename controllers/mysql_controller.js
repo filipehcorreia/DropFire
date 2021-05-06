@@ -5,7 +5,6 @@ const SCHEMA_CREATE_STATEMENT = "CREATE DATABASE IF NOT EXISTS";
 
 const GET_USER_FILES_STATEMENT = 'SELECT * FROM files WHERE bucket_user= (?)';
 
-
 var db_name = process.env.DB_NAME || "main";
 var cloud = process.env.IS_CLOUD
 
@@ -44,8 +43,6 @@ tempConnection.query(`${SCHEMA_CREATE_STATEMENT} ${db_name}`, function(err, res)
     tempConnection.end();
 });
 
-
-
 if (cloud == undefined) {
     var pool = mysql.createPool({
         host: process.env.DB_HOST || '146.148.24.140',
@@ -65,7 +62,6 @@ if (cloud == undefined) {
     });
 
 }
-
 
 //give the pool to whomever ask for it
 module.exports = pool;

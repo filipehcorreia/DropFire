@@ -34,7 +34,6 @@ Bucket.create = async(bucketToCreate, result) => {
                     return;
                 }
 
-                console.log(res);
                 //Found 0 occasions
                 result(null, 0);
 
@@ -51,6 +50,5 @@ Bucket.create = async(bucketToCreate, result) => {
     return;
 
 }
-
 
 module.exports = Bucket;

@@ -1,23 +1,11 @@
 var nodemailer = require('nodemailer');
-/*var Secret = require("./secrets.js");
+var Secret = require("./secrets.js");
 
 const gmailPassSecret = new Secret({
     key: 'GMAIL_PASS'
 });
 
-var putSecretHere;
 
-let getSecret = async() => {
-    await Secret.get(gmailPassSecret, (error, result) => {
-        putSecretHere = result;
-    });
-};
-
-getSecret().then((res => {
- 
-}))
-
-*/
 const GMAIL_LOCAL_USER = "flmrcn@gmail.com";
 const GMAIL_LOCAL_PASS = "passwordsegura!";
 
@@ -27,13 +15,18 @@ const Email = function(user) {
     this.recovery_key = user.recovery_key;
 };
 
-Email.sendEmail = (Email, result) => {
+Email.sendEmail = async (Email, result) => {
+    var gmailPassword;
+
+    await Secret.get(gmailPassSecret, (error, result) => {
+        gmailPassword = result;
+    });
 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: process.env.GMAIL_USER || GMAIL_LOCAL_USER,
-            pass: process.env.GMAIL_PASS || GMAIL_LOCAL_PASS
+            pass: gmailPassword || GMAIL_LOCAL_PASS
         }
     });
 

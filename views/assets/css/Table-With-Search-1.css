@@ -55,3 +55,15 @@
 .search-table-col {
     margin-top: 100px;
 }
+
+.width30 {
+    width: 30%;
+}
+
+.width5 {
+    width: 5%;
+}
+
+i{
+    font-size: 15px;
+}

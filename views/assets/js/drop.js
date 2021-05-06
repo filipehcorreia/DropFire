@@ -10,26 +10,18 @@ window.addEventListener("load", function() {
             folders = 0,
             other = 0;
 
+        document.getElementById('nameFile').innerHTML = files[0].name;
+
+        var req = new XMLHttpRequest();
+        var form = new FormData();
+
+        form.append('file',files[0]);
+        req.open('POST','/dashboard/upload');
+        req.send(form);
+        window.location.href = '/dashboard?msg=success'
 
 
-        //TODO FORM e mandar files   
-        for (var i = 0, f; f = files[i]; i++) { // iterate in the files dropped
-            if (!f.type && f.size % 4096 == 0) folders++;
-            else other++;
-        }
 
-        if (folders && !other) {
-            if (folders > 1) info.innerHTML = 'You dropped ' + folders + ' folders!';
-            else info.innerHTML = 'You dropped 1 folder!';
-        } else if (!folders && other) {
-            if (other > 1) info.innerHTML = 'You dropped ' + other + ' files!';
-            else info.innerHTML = 'You dropped 1 file!';
-        } else {
-            if (folders > 1) info.innerHTML = 'You dropped ' + folders + ' folders ';
-            else info.innerHTML = 'You dropped 1 folder ';
-            if (other > 1) info.innerHTML += 'and ' + other + ' files!';
-            else info.innerHTML += 'and 1 file!';
-        }
     }
 
     function handleDragOver(e) {

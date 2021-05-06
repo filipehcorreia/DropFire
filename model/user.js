@@ -38,7 +38,7 @@ User.create = (userToCreate, result) => {
                 return;
             }
 
-            console.log(res);
+
             //Found 0 occasions
             result(null, 0);
 
@@ -58,8 +58,6 @@ User.createBucketOnGCP = (userToCreate, result) => {
         if (errBucket) {
             console.log(errBucket);
         }
-
-        console.log(resBucket);
 
     });
 };
@@ -103,13 +101,12 @@ User.findWhereEmail = (emailToSearch, result) => {
             connection.release();
 
             //Error from DB
-
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
                 return;
             }
-            console.log(res.length);
+
             //Reeturn found
             if (res.length >= 1) {
                 result(null, res);
@@ -139,7 +136,7 @@ User.checkIfKeyMatches = (emailToSearch, keyToSearch, result) => {
                 result(err, null);
                 return;
             }
-            console.log(res.length);
+
             //Reeturn found
             if (res.length >= 1) {
                 result(null, res);
@@ -171,7 +168,7 @@ User.updatePassword = (password, emailToUpdate, result) => {
                 result(err, null);
                 return;
             }
-            console.log(res.length);
+
             //Reeturn found
             if (res.length >= 1) {
                 result(null, res);
@@ -201,7 +198,7 @@ User.tryLogin = (userToLogin, result) => {
                 result(err, null);
                 return;
             }
-            console.log(res.length);
+
             //Reeturn found
             if (res.length >= 1) {
                 result(null, res);

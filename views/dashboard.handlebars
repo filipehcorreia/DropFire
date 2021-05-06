@@ -55,29 +55,30 @@
                     </div>
                     <div id="upload" class="form-group  col-lg-1"><button type="submit" class="btn btn-success">Upload</button></div>
                 </form>
-
-               
-                <!-- Shows error message if nothing wacles uploaded-->
-                {{#if errorSelectFile}}
+  
+                <!-- Shows error/success messages for dashboard page -->
+                
+                {{#if msgE}}
                 <br><br>
                 <div class="alert alert-danger alert-dismissible d-flex justify-content-center offset10"
                     style=" width: 40%;margin-top:-65px; margin-left: auto;margin-right: auto;">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>ERROR:&nbsp; </strong>No file was uploaded!
+                    <strong>ERROR:&nbsp; </strong>{{msgE}}
                 </div>
                 <br>
                 {{/if}}
 
-                {{#if fileUploaded}}
+                {{#if msgS}}
                 <br><br>
                 <div class="alert alert-success alert-dismissible d-flex justify-content-center offset10"
                     style=" width: 40%;margin-top:-65px; margin-left: auto;margin-right: auto;">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>SUCCESS:&nbsp; </strong>{{fileUploaded}}
+                    <strong>SUCCESS:&nbsp; </strong>{{msgS}}
                 </div>
                 <br>
-                {{/if}}
-                <!-- ^^^^^^^^^^^^ Shows error message if nothing was uploaded ^^^^^^^^^^^^-->
+                {{/if}}               
+
+                <!-- ^^^^^^^^^^^^ Shows error/success messages for dashboard page ^^^^^^^^^^^^ -->
 
                 <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Search by typing here..">
                 </div><span class="counter pull-right"></span>
@@ -85,10 +86,11 @@
                     <table id="ficheiros" class="table table-bordered table-hover">
                         <thead class="bill-header cs">
                             <tr>
-                                <th id="trs-hd" class="col-lg-1">File Name</th>
-                                <th id="trs-hd" class="col-lg-2">File Size</th>
-                                <th id="trs-hd" class="col-lg-3">Upload Date</th>
-                                <th id="trs-hd" class="col-lg-1">Download</th>
+                                <th id="trs-hd" class="col-lg-1 width30">File Name</th>
+                                <th id="trs-hd" class="col-lg-2 width30">File Size</th>
+                                <th id="trs-hd" class="col-lg-3 width30">Upload Date</th>
+                                <th id="trs-hd" class="col-lg-1 width5">Download</th>
+                                <th id="trs-hd" class="col-lg-1 width5">Delete File</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -102,7 +104,8 @@
                                     <td>{{filename}}</td>
                                     <td>{{filesize}}</td>
                                     <td>{{uploaddate}}</td>
-                                    <td><button class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-cloud-download" style="font-size: 15px;"></i></button></td>  
+                                    <td><a href="download/{{uploaddate}}{{filename}}" class="btn btn-success"  type="submit"><i class="fa fa-cloud-download"></i></a></td> 
+                                    <td><a href="delete/{{uploaddate}}{{filename}}" class="btn btn-danger"  type="submit"><i class="fa fa-trash" ></i></a></td> 
                             </tr>  
                           
                             {{/each}}
@@ -114,7 +117,7 @@
 
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © DropFire 2021</span></div>
+                    <div class="text-center myauto copyright"><span>Copyright © DropFire 2021</span></div>
                 </div>
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>

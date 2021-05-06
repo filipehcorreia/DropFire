@@ -17,7 +17,6 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    console.log(req.body);
     const {
         username,
         firstName,
@@ -32,7 +31,6 @@ router.post('/', function(req, res) {
     // Check if the password and confirm password fields match
     var HashedPassword = crypto.createHash('sha256').update(password).digest('base64');
     var HashedKey = crypto.createHash('sha256').update(email).digest('base64');
-
 
 
     if (password === confirmPassword) {
@@ -65,7 +63,7 @@ router.post('/', function(req, res) {
                                     if (errCreateBucket) {
                                         console.log(errCreateBucket);
                                     } else {
-                                        console.log(resBucket);
+                                        console.log("Bucket created");
                                     }
                                 });
                                 const email = new Email(user);
@@ -100,8 +98,6 @@ router.post('/', function(req, res) {
     }
 
 });
-
-
 
 //export this router to use in our index.js
 module.exports = router;

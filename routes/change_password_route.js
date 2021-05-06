@@ -16,7 +16,6 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    console.log(req.body);
     const {
         email,
         key,
@@ -56,11 +55,7 @@ router.post('/', function(req, res) {
                     keyDoesntMatch: true
                 })
             }
-
-
-
         });
-
 
     } else {
         res.render('change_pass', {
@@ -70,8 +65,6 @@ router.post('/', function(req, res) {
     }
 
 });
-
-
 
 //export this router to use in our index.js
 module.exports = router;

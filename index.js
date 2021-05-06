@@ -21,7 +21,7 @@ app.use(express.json());
 app.set('trust proxy', 1);
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Dropfire started at http://localhost:${port}`)
 })
 
 
@@ -33,7 +33,7 @@ const RedisStore = connectRedis(session)
 //Otherwise, will use local host and the port defined by the service
 const redisClient = redis.createClient({
     host: process.env.REDIS_HOST || '127.0.0.1',
-    port: process.env.REDIS_PORT || 81
+    port: process.env.REDIS_PORT || 80
 })
 redisClient.on('error', function(err) {
     console.log('Could not establish a connection with redis. ' + err);
@@ -45,7 +45,7 @@ redisClient.on('connect', function(err) {
 //Configure session middleware
 app.use(session({
     store: new RedisStore({ client: redisClient }),
-    secret: 'segredo',
+    secret: 'cookieSecret-cnDropFire',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -63,35 +63,12 @@ app.use('/dashboard', dashboard_route);
 
 
 app.get('/', async(req, res) => {
-    //res.json({status: sess+" Let's go"});
+
     sess = req.session;
     if (sess.username && sess.password) {
         sess = req.session;
         if (sess.username) {
-            console.log("logado")
         }
     } else {}
     res.render('home', { layout: false, user: sess.username });
-});
-
-app.get('/test', async(req, res) => {
-
-    const sess = req.session;
-
-    console.log(req.session);
-
-    redisClient.keys('*', (err, keys) => {
-        console.log("keys");
-        console.log(keys);
-
-        redisClient.get(req.sess, (err, reply) => {
-            console.log(reply);
-
-            console.log(err);
-        });
-        console.log(err);
-    });
-
-    res.json({ status: sess + " Let's go" });
-    //res.render('home',{layout: false});
 });

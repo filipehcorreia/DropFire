@@ -13,7 +13,6 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    console.log(req.body);
     const { username, password } = req.body;
     // Check if the password and confirm password fields match
     var HashedPassword = crypto.createHash('sha256').update(password).digest('base64');
@@ -33,8 +32,6 @@ router.post('/', function(req, res) {
 
 
         if (dataFindUsername.length == 1) {
-            console.log(dataFindUsername);
-
             var sess = req.session;
             sess.username = user.username;
             sess.password = user.password;
