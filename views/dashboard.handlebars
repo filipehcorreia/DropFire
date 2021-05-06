@@ -103,9 +103,9 @@
                             <tr>     
                                     <td>{{filename}}</td>
                                     <td>{{filesize}}</td>
-                                    <td>{{uploaddate}}</td>
-                                    <td><a href="download/{{uploaddate}}{{filename}}" class="btn btn-success"  type="submit"><i class="fa fa-cloud-download"></i></a></td> 
-                                    <td><a href="delete/{{uploaddate}}{{filename}}" class="btn btn-danger"  type="submit"><i class="fa fa-trash" ></i></a></td> 
+                                    <td>{{uploaddateDisplay}}</td>
+                                    <td><a href="/dashboard/download/{{uploaddate}}{{filename}}" class="btn btn-success"  type="submit"><i class="fa fa-cloud-download"></i></a></td> 
+                                    <td><a href="/dashboard/delete/{{uploaddate}}{{filename}}" class="btn btn-danger"  type="submit"><i class="fa fa-trash" ></i></a></td> 
                             </tr>  
                           
                             {{/each}}

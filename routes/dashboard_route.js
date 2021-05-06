@@ -35,7 +35,8 @@ router.get('/', function(req, res) {
                 arr.push({
                     filename: dataFromFile[i].FileName.substring(18,dataFromFile[i].FileName.length),
                     filesize: (dataFromFile[i].FileSize * 0.000001).toFixed(2) + "MB",
-                    uploaddate: day + " " + date
+                    uploaddateDisplay: day + " " + date,
+                    uploaddate: day+date
                 });
             }
 
@@ -149,8 +150,8 @@ router.get('/download/:filename', async function(req, res) {
     
         try{
             var bucket = bucket_controller.bucket(`${fixedNameOfBucket}${usernameFromSession}`);
+           
             const remoteFile = bucket.file(filename);
-            
             await remoteFile.getMetadata().then(function(metaDataResponse){
                 res.set("Content-Type", metaDataResponse.contentType);
                 res.attachment(filename.substr(18,filename.length));
@@ -169,7 +170,7 @@ router.get('/download/:filename', async function(req, res) {
                 .pipe(res);
         }catch(err){
             console.log(err);
-            
+            res.redirect("/dashboard?msg= fileNotUploaded");
         }
         
 

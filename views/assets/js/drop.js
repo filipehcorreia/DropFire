@@ -18,7 +18,7 @@ window.addEventListener("load", function() {
         form.append('file',files[0]);
         req.open('POST','/dashboard/upload');
         req.send(form);
-        window.location.href = '/dashboard?msg=success'
+        window.location.href = '/dashboard?msg=fileUploaded'
 
 
 
