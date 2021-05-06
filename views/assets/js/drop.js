@@ -17,11 +17,12 @@ window.addEventListener("load", function() {
 
         form.append('file',files[0]);
         req.open('POST','/dashboard/upload');
+        
+        req.onload = function() {
+            window.location.href= '/dashboard?msg=fileUploaded';
+        }
+        
         req.send(form);
-        window.location.href = '/dashboard?msg=fileUploaded'
-
-
-
     }
 
     function handleDragOver(e) {
