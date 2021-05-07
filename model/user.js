@@ -17,6 +17,8 @@ const User = function(user) {
     this.recovery_key = user.recovery_key;
 };
 
+/* we create and insert a user in the database*/
+
 User.create = (userToCreate, result) => {
     db_controller.getConnection(function(err, connection) {
         if (err) throw err; //Error connection to 
@@ -45,6 +47,10 @@ User.create = (userToCreate, result) => {
         });
     });
 };
+
+/*
+we create and insert a bucket in the database, with the name of the user plus the string "flmrcn"
+*/
 
 User.createBucketOnGCP = (userToCreate, result) => {
 

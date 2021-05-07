@@ -10,6 +10,11 @@ const Bucket = function(bucket) {
     this.bucket_username = bucket.bucket_username;
 };
 
+
+/*
+We receive a Bucket object with the bucket's name and the username for whom it will be created.
+Then try to create the bucket in the cloud by sending the bucket name , location and Class using the Google cloud storage lib
+*/
 Bucket.create = async(bucketToCreate, result) => {
     try {
         const [bucket] = await bucket_controller.createBucket(bucketToCreate.bucket_name, {
@@ -17,7 +22,9 @@ Bucket.create = async(bucketToCreate, result) => {
             storageClass: 'STANDARD'
         });
 
-        //
+        /*
+            Add a row to the 'buckets' table in the SQL Server containing the bucket's name and the user's username
+        */
         db_controller.getConnection(function(err, connection) {
             if (err) throw err; //Error connection to 
             connection.query(CREATE_BUCKET_STATEMENT, [bucketToCreate.bucket_name, bucketToCreate.bucket_username], function(err, res) {

@@ -12,7 +12,9 @@ const File = function(file) {
     this.filename = file.uploaddate+file.filename;
     this.bucketuser = file.bucketuser;
 };
-
+/*
+We store file information in the database so can later use it to fill the user's dashboard with their files
+*/
 File.create = async(fileToCreate, result) => {
     db_controller.getConnection(function(err, connection) {
         if (err) throw err; //Error connection to 
@@ -36,7 +38,11 @@ File.create = async(fileToCreate, result) => {
         });
     });
 };
+/*
+Get the files information from the database using the username of the logged user.
+*/
 
+tou ca pr
 File.findWhereBucketUser = (bucket_userToSearch, result) => {
     db_controller.getConnection(function(errConnection, connection) {
         if (errConnection) throw errConnection;
