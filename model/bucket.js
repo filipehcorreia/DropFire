@@ -1,21 +1,23 @@
+//require everything to make this work
+
 const bucket_controller = require('../controllers/bucket_controller.js');
 const db_controller = require('../controllers/mysql_controller.js');
 
+//SQL Query to insert the bucketname and the user of that bucket on the DB
 const CREATE_BUCKET_STATEMENT = 'INSERT INTO buckets VALUES (?,?)'; //bucket , username 
 
 
 // constructor
-const Bucket = function(bucket) {
+const Bucket = function (bucket) {
     this.bucket_name = bucket.bucket_name;
     this.bucket_username = bucket.bucket_username;
 };
-
 
 /*
 We receive a Bucket object with the bucket's name and the username for whom it will be created.
 Then try to create the bucket in the cloud by sending the bucket name , location and Class using the Google cloud storage lib
 */
-Bucket.create = async(bucketToCreate, result) => {
+Bucket.create = async (bucketToCreate, result) => {
     try {
         const [bucket] = await bucket_controller.createBucket(bucketToCreate.bucket_name, {
             location: 'EU',
@@ -25,9 +27,9 @@ Bucket.create = async(bucketToCreate, result) => {
         /*
             Add a row to the 'buckets' table in the SQL Server containing the bucket's name and the user's username
         */
-        db_controller.getConnection(function(err, connection) {
+        db_controller.getConnection(function (err, connection) {
             if (err) throw err; //Error connection to 
-            connection.query(CREATE_BUCKET_STATEMENT, [bucketToCreate.bucket_name, bucketToCreate.bucket_username], function(err, res) {
+            connection.query(CREATE_BUCKET_STATEMENT, [bucketToCreate.bucket_name, bucketToCreate.bucket_username], function (err, res) {
                 //Error from DB     
                 if (err) {
                     console.log("error: ", err);
@@ -48,6 +50,7 @@ Bucket.create = async(bucketToCreate, result) => {
         });
 
     } catch (e) {
+        //If something went wrong, return the errors
         console.log(e);
         result(true, null);
         return;
@@ -58,4 +61,5 @@ Bucket.create = async(bucketToCreate, result) => {
 
 }
 
+//Make the class "public" for everyone who needs it
 module.exports = Bucket;

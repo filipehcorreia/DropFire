@@ -1,3 +1,5 @@
+//require everything to make this work
+
 var nodemailer = require('nodemailer');
 var Secret = require("./secrets.js");
 
@@ -9,7 +11,7 @@ const gmailPassSecret = new Secret({
 const GMAIL_LOCAL_USER = "flmrcn@gmail.com";
 const GMAIL_LOCAL_PASS = "passwordsegura!";
 
-const Email = function(user) {
+const Email = function (user) {
     this.firstName = user.firstName;
     this.email = user.email;
     this.recovery_key = user.recovery_key;
@@ -25,9 +27,9 @@ Email.sendEmail = async (Email, result) => {
     await Secret.get(gmailPassSecret, (error, result) => {
         gmailPassword = result;
     });
-/*We create a transport object (provided by nodemailer (nodejs)) and send the
- log-in info of our email(this is where the thank you for registering email is sent from) 
-*/
+    /*We create a transport object (provided by nodemailer (nodejs)) and send the
+     log-in info of our email(this is where the thank you for registering email is sent from) 
+    */
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -35,9 +37,9 @@ Email.sendEmail = async (Email, result) => {
             pass: gmailPassword || GMAIL_LOCAL_PASS
         }
     });
-/*
-Set the mail options using data received as the function parameter, set subject and create the email body
-*/ 
+    /*
+    Set the mail options using data received as the function parameter, set subject and create the email body
+    */
     var mailOptions = {
         from: process.env.GMAIL_USER,
         to: Email.email,
@@ -48,10 +50,10 @@ Set the mail options using data received as the function parameter, set subject 
         Best Regards, <br><br>
         <strong>The DropFire team.<strong>`
     };
-/*
-Use the Transporter object created above and use the sendMail function to send the email to the adress provided by the user
-*/
-    transporter.sendMail(mailOptions, function(error, info) {
+    /*
+    Use the Transporter object created above and use the sendMail function to send the email to the adress provided by the user
+    */
+    transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
         } else {
@@ -60,4 +62,5 @@ Use the Transporter object created above and use the sendMail function to send t
     });
 }
 
+//Make the class "public" for everyone who needs it
 module.exports = Email;

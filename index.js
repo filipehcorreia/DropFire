@@ -1,3 +1,5 @@
+//require everything to make this work
+
 const express = require('express')
 const app = express();
 var exphbs = require('express-handlebars');
@@ -33,16 +35,18 @@ const redisClient = redis.createClient({
     host: process.env.REDIS_HOST || '127.0.0.1',
     port: process.env.REDIS_PORT || 81
 })
-redisClient.on('error', function(err) {
+redisClient.on('error', function (err) {
     console.log('Could not establish a connection with redis. ' + err);
 });
-redisClient.on('connect', function(err) {
+redisClient.on('connect', function (err) {
     console.log('Connected to redis successfully');
 });
 
 //Configure session middleware
 app.use(session({
-    store: new RedisStore({ client: redisClient }),
+    store: new RedisStore({
+        client: redisClient
+    }),
     secret: 'cookieSecret-cnDropFire',
     resave: false,
     saveUninitialized: false,
@@ -59,14 +63,17 @@ app.use('/auth/logout', logout_route);
 app.use('/auth/changepassword', change_password_route);
 app.use('/dashboard', dashboard_route);
 
+//If the user is logged in, the home page is rendered
 
-app.get('/', async(req, res) => {
+app.get('/', async (req, res) => {
 
     sess = req.session;
     if (sess.username && sess.password) {
         sess = req.session;
-        if (sess.username) {
-        }
+        if (sess.username) {}
     } else {}
-    res.render('home', { layout: false, user: sess.username });
+    res.render('home', {
+        layout: false,
+        user: sess.username
+    });
 });

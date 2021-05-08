@@ -1,6 +1,9 @@
+//require everything to make this work
+
 const db_controller = require("../controllers/mysql_controller.js");
 const Bucket = require("./bucket.js");
 
+//SQL queries to create user, find users by name and email, login, changePassword, to check if email and the recovery key matches 
 const CREATE_USER_STATEMENT = 'INSERT INTO users VALUES (?,?,?,?,?)';
 const FIND_USER_BY_USERNAME_STATEMENT = 'SELECT * FROM users WHERE username=?';
 const FIND_USER_BY_EMAIL_STATEMENT = 'SELECT * FROM users WHERE email=?';
@@ -9,7 +12,7 @@ const CHECK_IF_KEYS_MATCH_STATEMENT = 'SELECT * FROM users WHERE email=? and rec
 const CHANGE_PASSWORD_STATEMENT = 'UPDATE users SET password=? WHERE email=?';
 
 // constructor
-const User = function(user) {
+const User = function (user) {
     this.username = user.username;
     this.firstName = user.firstName;
     this.email = user.email;
@@ -20,10 +23,10 @@ const User = function(user) {
 /* we create and insert a user in the database*/
 
 User.create = (userToCreate, result) => {
-    db_controller.getConnection(function(err, connection) {
+    db_controller.getConnection(function (err, connection) {
         if (err) throw err; //Error connection to 
 
-        connection.query(CREATE_USER_STATEMENT, [userToCreate.username, userToCreate.firstName, userToCreate.email, userToCreate.password, userToCreate.recovery_key], function(err, res) {
+        connection.query(CREATE_USER_STATEMENT, [userToCreate.username, userToCreate.firstName, userToCreate.email, userToCreate.password, userToCreate.recovery_key], function (err, res) {
             // When done with the connection, release it.
             connection.release();
 
@@ -68,13 +71,15 @@ User.createBucketOnGCP = (userToCreate, result) => {
     });
 };
 
-
+/*
+Select everything from the 'users' table associated with a specific username using a connection from the pool
+*/
 
 User.findWhereUsername = (usernameToSearch, result) => {
-    db_controller.getConnection(function(errConnection, connection) {
+    db_controller.getConnection(function (errConnection, connection) {
         if (errConnection) throw errConnection;
 
-        connection.query(FIND_USER_BY_USERNAME_STATEMENT, [usernameToSearch], function(errFromDb, resFromDB) {
+        connection.query(FIND_USER_BY_USERNAME_STATEMENT, [usernameToSearch], function (errFromDb, resFromDB) {
             // When done with the connection, release it.
             connection.release();
 
@@ -98,11 +103,15 @@ User.findWhereUsername = (usernameToSearch, result) => {
     });
 };
 
+/*
+Select everything from the 'users' table associated with a specific email address using a connection from the pool
+*/
+
 User.findWhereEmail = (emailToSearch, result) => {
-    db_controller.getConnection(function(err, connection) {
+    db_controller.getConnection(function (err, connection) {
         if (err) throw err;
 
-        connection.query(FIND_USER_BY_EMAIL_STATEMENT, [emailToSearch], function(err, res) {
+        connection.query(FIND_USER_BY_EMAIL_STATEMENT, [emailToSearch], function (err, res) {
             // When done with the connection, release it.
             connection.release();
 
@@ -127,11 +136,12 @@ User.findWhereEmail = (emailToSearch, result) => {
     });
 };
 
+//Check if the recovery key and email matches. We will need this to change the password. 
 User.checkIfKeyMatches = (emailToSearch, keyToSearch, result) => {
-    db_controller.getConnection(function(err, connection) {
+    db_controller.getConnection(function (err, connection) {
         if (err) throw err;
 
-        connection.query(CHECK_IF_KEYS_MATCH_STATEMENT, [emailToSearch, keyToSearch], function(err, res) {
+        connection.query(CHECK_IF_KEYS_MATCH_STATEMENT, [emailToSearch, keyToSearch], function (err, res) {
             // When done with the connection, release it.
             connection.release();
 
@@ -158,12 +168,13 @@ User.checkIfKeyMatches = (emailToSearch, keyToSearch, result) => {
 };
 
 
+//When the password have been changed, update the database data 
 
 User.updatePassword = (password, emailToUpdate, result) => {
-    db_controller.getConnection(function(err, connection) {
+    db_controller.getConnection(function (err, connection) {
         if (err) throw err;
 
-        connection.query(CHANGE_PASSWORD_STATEMENT, [password, emailToUpdate], function(err, res) {
+        connection.query(CHANGE_PASSWORD_STATEMENT, [password, emailToUpdate], function (err, res) {
             // When done with the connection, release it.
             connection.release();
 
@@ -175,7 +186,7 @@ User.updatePassword = (password, emailToUpdate, result) => {
                 return;
             }
 
-            //Reeturn found
+            //Return found
             if (res.length >= 1) {
                 result(null, res);
                 return;
@@ -189,11 +200,12 @@ User.updatePassword = (password, emailToUpdate, result) => {
     });
 };
 
+//tryLogin for the login form. Checks if the user and password are correct/ the pair exists on the DB.
 User.tryLogin = (userToLogin, result) => {
-    db_controller.getConnection(function(err, connection) {
+    db_controller.getConnection(function (err, connection) {
         if (err) throw err;
 
-        connection.query(USER_LOGIN_STATEMENT, [userToLogin.username, userToLogin.password], function(err, res) {
+        connection.query(USER_LOGIN_STATEMENT, [userToLogin.username, userToLogin.password], function (err, res) {
             // When done with the connection, release it.
             connection.release();
 
@@ -205,7 +217,7 @@ User.tryLogin = (userToLogin, result) => {
                 return;
             }
 
-            //Reeturn found
+            //Return found
             if (res.length >= 1) {
                 result(null, res);
                 return;
@@ -220,7 +232,5 @@ User.tryLogin = (userToLogin, result) => {
 
 };
 
-
-
-
+//Make the class "public" for everyone who needs it
 module.exports = User;

@@ -1,4 +1,6 @@
 //MY SQL TABLES CREATOR
+
+//Constructor
 const Mysql_tables = function (mysql_tables) {
     this.connection = mysql_tables.connection;
     this.db_name = mysql_tables.db_name;

@@ -92,7 +92,7 @@
                             <tr class="warning no-result">
                                 <td colspan="8"><i class="fa fa-warning"></i>&nbsp; No Files !!!</td>
                             </tr>
-                            {{log arr}} 
+                            <!-- for each file, render the file's information --> 
                             {{#each arr}}
                             
                             <tr>     
@@ -102,7 +102,7 @@
                                     <td><a href="/dashboard/download/{{uploaddate}}{{filename}}" class="btn btn-success centerButton" type="submit"><i class="fa fa-cloud-download"></i></a></td> 
                                     <td><a href="/dashboard/delete/{{uploaddate}}{{filename}}" class="btn btn-danger" type="submit"><i class="fa fa-trash" ></i></a></td> 
                             </tr>  
-                          
+
                             {{/each}}
                             
                         </tbody>
@@ -121,7 +121,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="https://cdn.dropfire.pt/assets/js/Table-With-Search.js"></script>
     <script src="https://cdn.dropfire.pt/assets/js/theme.js"></script>
-
 
 </body>
 
