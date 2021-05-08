@@ -58,7 +58,7 @@ we create and insert a bucket in the database, with the name of the user plus th
 User.createBucketOnGCP = (userToCreate, result) => {
 
     const bucket = new Bucket({
-        bucket_name: "flmrcn" + userToCreate.username,
+        bucket_name: "flmrcn" + userToCreate.username.toLowerCase(),
         bucket_username: userToCreate.username
     });
 
