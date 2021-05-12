@@ -47,9 +47,7 @@ router.get('/', function (req, res) {
                 });
             }
 
-            /*THIS RENDER HAS TO BE INSIDE THE FUNCTION WHERE THE SQL QUERY HAPPENS , OTHERWISE
-            THE QUERIE RESULT WILL ARRIVE AFTER THE "FILES(null/empty)"
-            ARE SENT TO THE HANDLEBARS TO RENDER*/
+            
 
 
             //Handle the different outcomes (sucess/errors) to render the respective alerts
@@ -78,7 +76,13 @@ router.get('/', function (req, res) {
                     msgS = undefined
                     msgE = "Error, file is too big"
                     break;
+                case "fileNotDownloaded":
+                    msgS = undefined
+                    msgE = "Error, the file wasn't downloaded"
+                    break;
             }
+
+           
             /*If data is retrieved, send file's data and 
             error/sucess messages to the headers in order to re-render the dashboard
             */
@@ -90,6 +94,12 @@ router.get('/', function (req, res) {
                     arr: arr
 
                 });
+
+                 /*THIS RENDER HAS TO BE INSIDE THE FUNCTION WHERE THE SQL QUERY HAPPENS , OTHERWISE
+            THE QUERIE RESULT WILL ARRIVE AFTER THE "FILES(null/empty)"
+            ARE SENT TO THE HANDLEBARS TO RENDER*/
+
+
                 /*If there's no data retrieved dont send anything 
                 (should happen if the user doesnt have any files uploaded|| There's no files in the database that belongs to <user>)    
                 */
@@ -122,7 +132,7 @@ router.post('/upload', multer.single('file'), function (req, res, next) {
         var usernameFromSession = req.session.username.toLowerCase();
         var fixedNameOfBucket = 'flmrcn';
 
-        //Create the user's bucket using the data stated above 
+        //Create the user's bucket object using the data stated above 
         var bucket = bucket_controller.bucket(`${fixedNameOfBucket}${usernameFromSession}`);
         var uploaddate = dateFormat(new Date(), "yyyy-mm-ddhh:MM:ss");
 
@@ -197,7 +207,7 @@ router.get('/download/:filename', async function (req, res) {
         } catch (err) {
             //If the download was not succesfully done, return the errors, and shows an error message on the page.
             console.log(err);
-            res.redirect("/dashboard?msg=fileNotUploaded");
+            res.redirect("/dashboard?msg=fileNotDownloaded");
         }
 
         //If the user is not logged in and tries to access the dashboard, he will be redirected to the login form.     

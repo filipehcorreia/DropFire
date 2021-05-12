@@ -27,13 +27,6 @@ router.post('/', function (req, res) {
     // Check if the password and confirm password fields match
     var HashedPassword = crypto.createHash('sha256').update(password).digest('base64');
 
-    //The response. An array for errors and another one for success. When an error occurs we will push the error into the
-    //errors array. If something works well, we will push to the success array.
-    var response = {
-        "error": [],
-        "success": []
-    };
-
     //Creates a new user object
     const user = new User({
         username: username,
@@ -55,10 +48,7 @@ router.post('/', function (req, res) {
             sess.username = user.username;
             sess.password = user.password;
 
-            //positive response. Will push a message into the success array and redirect the user
-            response["success"].push({
-                "msg": "You are now logged in!"
-            });
+          
             res.redirect("/");
             return;
         }
