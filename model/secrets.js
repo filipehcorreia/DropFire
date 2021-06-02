@@ -20,8 +20,7 @@ Secret.get = async (secretToGet, result) => {
         // Extract the payload as a string.
         var payload = version.payload.data.toString();
 
-        // WARNING: Do not print the secret in a production environment - this
-        // snippet is showing how to access the secret material.
+        
         result(false, payload);
         return;
     } catch (e) {

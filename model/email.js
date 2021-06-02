@@ -9,7 +9,7 @@ const gmailPassSecret = new Secret({
 
 /* consts used for local dev only */
 const GMAIL_LOCAL_USER = "flmrcn@gmail.com";
-const GMAIL_LOCAL_PASS = "passwordsegura!";
+const GMAIL_LOCAL_PASS = "*****";
 
 const Email = function (user) {
     this.firstName = user.firstName;
